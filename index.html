@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pronta Ayuda LP</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e293b">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3063/3063206.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: radial-gradient(circle at center top, #1e293b 0%, #0f172a 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Inter', sans-serif;
+            color: white;
+            position: relative;
+        }
+
+        /* ── VISTA REGISTRO ── */
+        #registration-view {
+            width: 100%; max-width: 500px; padding: 20px;
+            display: none; z-index: 10;
+        }
+        .glass-card {
+            background: rgba(30,41,59,0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px; padding: 30px 25px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+        }
+        .header-title {
+            text-align: center; font-size: 28px; font-weight: 700; margin-bottom: 5px;
+            background: linear-gradient(to right, #ff5f6d, #ffc371);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .header-subtitle { text-align: center; color: #94a3b8; font-size: 14px; margin-bottom: 25px; }
+        .form-group { margin-bottom: 18px; }
+        .form-label { display: block; font-size: 14px; font-weight: 500; color: #cbd5e1; margin-bottom: 6px; }
+        .form-input {
+            width: 100%; background: rgba(15,23,42,0.6);
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
+            padding: 14px 16px; color: white; font-size: 16px;
+            font-family: 'Inter', sans-serif; transition: all 0.3s ease;
+        }
+        .form-input:focus { outline: none; border-color: #ff5f6d; box-shadow: 0 0 0 3px rgba(255,95,109,0.2); }
+        .toggle-container {
+            background: rgba(15,23,42,0.6); border-radius: 12px; padding: 15px;
+            margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.1);
+        }
+        .toggle-question { font-size: 15px; margin-bottom: 12px; font-weight: 500; }
+        .radio-group { display: flex; gap: 15px; }
+        .radio-label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 15px; color: #e2e8f0; }
+        input[type="radio"] { accent-color: #ff5f6d; width: 18px; height: 18px; }
+        #pagadores-section { display: none; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; margin-top: 10px; }
+        #pagador2-section { display: none; margin-top: 16px; border-top: 1px solid rgba(255,255,255,0.07); padding-top: 16px; }
+        .section-title { font-size: 16px; color: #ff5f6d; font-weight: 600; margin-bottom: 15px; }
+        .section-title-2 { font-size: 14px; color: #ffc371; font-weight: 600; margin-bottom: 12px; }
+        .btn-add-pagador {
+            width: 100%; background: transparent;
+            border: 1px dashed rgba(255,195,113,0.4); border-radius: 10px;
+            color: #ffc371; padding: 10px; font-size: 14px;
+            cursor: pointer; transition: all 0.2s; margin-bottom: 8px;
+        }
+        .btn-add-pagador:hover { background: rgba(255,195,113,0.08); }
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, #ff5f6d 0%, #ff1c43 100%);
+            color: white; border: none; border-radius: 12px;
+            padding: 16px; font-size: 18px; font-weight: 700;
+            cursor: pointer; box-shadow: 0 10px 20px rgba(255,28,67,0.3);
+            transition: all 0.2s; margin-top: 10px;
+        }
+        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 15px 25px rgba(255,28,67,0.4); }
+
+        /* ── VISTA PRINCIPAL ── */
+        #main-view {
+            display: none; flex-direction: column; align-items: center;
+            justify-content: center; height: 100vh; width: 100%;
+            position: relative; z-index: 10;
+        }
+        .ambient-light {
+            position: absolute; width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(239,68,68,0.15) 0%, rgba(0,0,0,0) 70%);
+            top: 50%; left: 50%; transform: translate(-50%,-50%);
+            z-index: -1; pointer-events: none;
+        }
+        .button-wrapper { display: flex; flex-direction: column; align-items: center; gap: 40px; }
+        .help-button {
+            position: relative; width: 280px; height: 280px; border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, #ff5f6d 0%, #ff1c43 100%);
+            color: #ffffff; font-size: 90px; font-weight: 900; letter-spacing: 2px;
+            display: flex; justify-content: center; align-items: center;
+            text-decoration: none; cursor: pointer; outline: none;
+            user-select: none; -webkit-tap-highlight-color: transparent;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 60px rgba(255,28,67,0.6),
+                        inset 0 10px 20px rgba(255,255,255,0.4), inset 0 -10px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s cubic-bezier(0.175,0.885,0.32,1.275);
+        }
+        .help-button::before, .help-button::after {
+            content: ''; position: absolute; top: 50%; left: 50%;
+            width: 100%; height: 100%; background-color: transparent;
+            border-radius: 50%; border: 2px solid rgba(255,95,109,0.6);
+            transform: translate(-50%,-50%); z-index: -1; pointer-events: none;
+        }
+        .help-button::before { animation: ripple 2.5s infinite linear; }
+        .help-button::after  { animation: ripple 2.5s infinite linear 1.25s; }
+        @keyframes ripple {
+            0%   { width:100%; height:100%; opacity:1; border-width:6px; }
+            100% { width:160%; height:160%; opacity:0; border-width:1px; }
+        }
+        .help-button:hover { transform: translateY(-5px) scale(1.02); filter: brightness(1.1); }
+        .help-button:active { transform: translateY(10px) scale(0.95); transition: all 0.1s; }
+        .instruction-container { text-align: center; display: flex; flex-direction: column; gap: 8px; }
+        .instruction-title { color:#fff; font-size:38px; font-weight:900; text-transform:uppercase; letter-spacing:3px; }
+        .instruction-subtitle { color:#94a3b8; font-size:18px; }
+        .arrow-up {
+            width:0; height:0;
+            border-left:15px solid transparent; border-right:15px solid transparent;
+            border-bottom:20px solid rgba(255,95,109,0.8);
+            margin: 0 auto 15px auto; animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%,20%,50%,80%,100% { transform:translateY(0); }
+            40% { transform:translateY(-15px); }
+            60% { transform:translateY(-7px); }
+        }
+        .glass-highlight {
+            position:absolute; top:5%; left:15%; width:70%; height:30%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 100%);
+            border-radius: 50% 50% 0 0 / 100% 100% 0 0; pointer-events:none;
+        }
+        .welcome-msg { position:absolute; top:30px; left:30px; color:#94a3b8; font-size:16px; font-weight:500; }
+        .reset-btn {
+            position:absolute; top:30px; right:30px; background:transparent;
+            border:1px solid rgba(255,255,255,0.2); color:#94a3b8;
+            padding:8px 12px; border-radius:8px; cursor:pointer; font-size:12px; transition:all 0.2s;
+        }
+        .reset-btn:hover { background:rgba(255,255,255,0.1); color:white; }
+
+        /* ── VISTA CONFIRMACIÓN ── */
+        #confirm-view {
+            display: none; flex-direction: column; align-items: center;
+            justify-content: center; height: 100vh; width: 100%;
+            position: relative; z-index: 10; text-align: center; padding: 20px;
+        }
+        .confirm-icon {
+            width: 100px; height: 100px; border-radius: 50%;
+            background: rgba(34,197,94,0.15); border: 2px solid rgba(34,197,94,0.4);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 48px; margin-bottom: 28px;
+            animation: pulse-green 2s infinite;
+        }
+        @keyframes pulse-green {
+            0%,100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.3); }
+            50%      { box-shadow: 0 0 0 20px rgba(34,197,94,0); }
+        }
+        .confirm-title { font-size: 30px; font-weight: 700; margin-bottom: 12px; color: #fff; }
+        .confirm-sub   { font-size: 16px; color: #94a3b8; max-width: 320px; margin-bottom: 32px; line-height: 1.6; }
+        .confirm-timer {
+            font-size: 13px; color: #64748b;
+            background: rgba(255,255,255,0.05); border-radius: 10px;
+            padding: 10px 20px; margin-bottom: 32px;
+        }
+        .btn-volver {
+            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+            color: #94a3b8; border-radius: 12px; padding: 12px 28px;
+            font-size: 15px; cursor: pointer; transition: all 0.2s;
+        }
+        .btn-volver:hover { background: rgba(255,255,255,0.14); color: white; }
+    </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     PANTALLA 1: REGISTRO
+══════════════════════════════════════ -->
+<div id="registration-view">
+  <div class="glass-card">
+    <h1 class="header-title">Pronta Ayuda LP</h1>
+    <p class="header-subtitle">Completá tus datos una sola vez para comenzar</p>
+
+    <form id="registration-form">
+      <div class="form-group">
+        <label class="form-label">Nombre y Apellido</label>
+        <input type="text" id="r_nombre" class="form-input" required placeholder="Ej: Juan Pérez">
+      </div>
+      <div class="form-group">
+        <label class="form-label">DNI</label>
+        <input type="number" id="r_dni" class="form-input" required placeholder="Ej: 12345678">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Teléfono</label>
+        <input type="tel" id="r_telefono" class="form-input" required placeholder="Ej: 221-555-5555">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Dirección Completa</label>
+        <input type="text" id="r_direccion" class="form-input" required placeholder="Calle, número, piso/depto">
+      </div>
+
+      <div class="toggle-container">
+        <p class="toggle-question">¿Sabés realizar pagos con el celular (transferencias / Mercado Pago)?</p>
+        <div class="radio-group">
+          <label class="radio-label"><input type="radio" name="sabe_pagar" value="si" checked> Sí, sé pagar</label>
+          <label class="radio-label"><input type="radio" name="sabe_pagar" value="no"> No, necesito ayuda</label>
+        </div>
+      </div>
+
+      <div id="pagadores-section">
+        <h3 class="section-title">Contacto pagador principal</h3>
+        <div class="form-group">
+          <label class="form-label">Nombre del Contacto</label>
+          <input type="text" id="p1_nombre" class="form-input" placeholder="Ej: María Pérez">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Teléfono del Contacto</label>
+          <input type="tel" id="p1_telefono" class="form-input" placeholder="Ej: 221-444-4444">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Relación (Hijo/a, Sobrino/a, etc.)</label>
+          <input type="text" id="p1_relacion" class="form-input" placeholder="Ej: Hija">
+        </div>
+
+        <button type="button" class="btn-add-pagador" id="btn-add-p2" onclick="togglePagador2()">
+          + Agregar segundo contacto pagador (opcional)
+        </button>
+
+        <div id="pagador2-section">
+          <h3 class="section-title-2">Contacto pagador secundario</h3>
+          <div class="form-group">
+            <label class="form-label">Nombre del Contacto</label>
+            <input type="text" id="p2_nombre" class="form-input" placeholder="Ej: Carlos Pérez">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Teléfono del Contacto</label>
+            <input type="tel" id="p2_telefono" class="form-input" placeholder="Ej: 221-333-3333">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Relación</label>
+            <input type="text" id="p2_relacion" class="form-input" placeholder="Ej: Hijo">
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-submit">Guardar y Entrar</button>
+    </form>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     PANTALLA 2: BOTÓN PRINCIPAL
+══════════════════════════════════════ -->
+<div id="main-view">
+  <div class="ambient-light"></div>
+  <div class="welcome-msg" id="display-name">Hola, Usuario</div>
+  <button class="reset-btn" id="btn-reset">Borrar Mis Datos</button>
+
+  <div class="button-wrapper">
+    <a href="#" id="whatsapp-btn" class="help-button" aria-label="Botón de Pronta Ayuda">
+      <div class="glass-highlight"></div>
+      P-A
+    </a>
+    <div class="instruction-container">
+      <div class="arrow-up"></div>
+      <h1 class="instruction-title">Toca Aquí</h1>
+      <p class="instruction-subtitle">Para pedir ayuda inmediata</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     PANTALLA 3: CONFIRMACIÓN
+══════════════════════════════════════ -->
+<div id="confirm-view">
+  <div class="confirm-icon">✓</div>
+  <h2 class="confirm-title">¡Pedido enviado!</h2>
+  <p class="confirm-sub">Tu solicitud fue recibida. Te vamos a contactar en menos de 60 segundos.</p>
+  <div class="confirm-timer" id="confirm-timer">Esperando respuesta...</div>
+  <button class="btn-volver" onclick="volverAlInicio()">Volver al inicio</button>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════ -->
+<script>
+
+const CONFIG = {
+    ADMIN_PHONE: "5492216066516",   // ← Cambiá por el número real del administrador
+    TIMEOUT_SEG: 60
+};
+
+const regView     = document.getElementById('registration-view');
+const mainView    = document.getElementById('main-view');
+const confirmView = document.getElementById('confirm-view');
+const form        = document.getElementById('registration-form');
+const radiosPagar = document.querySelectorAll('input[name="sabe_pagar"]');
+const pagadoresSection = document.getElementById('pagadores-section');
+const pagador2Section  = document.getElementById('pagador2-section');
+const displayName = document.getElementById('display-name');
+const btnReset    = document.getElementById('btn-reset');
+const btnWhatsapp = document.getElementById('whatsapp-btn');
+const confirmTimer= document.getElementById('confirm-timer');
+
+let timerInterval = null;
+
+radiosPagar.forEach(radio => {
+    radio.addEventListener('change', e => {
+        const noSabe = e.target.value === 'no';
+        pagadoresSection.style.display = noSabe ? 'block' : 'none';
+        document.getElementById('p1_nombre').required   = noSabe;
+        document.getElementById('p1_telefono').required = noSabe;
+    });
+});
+
+function togglePagador2() {
+    const visible = pagador2Section.style.display === 'block';
+    pagador2Section.style.display = visible ? 'none' : 'block';
+    document.getElementById('btn-add-p2').textContent = visible
+        ? '+ Agregar segundo contacto pagador (opcional)'
+        : '− Quitar segundo contacto';
+}
+
+function checkUserStatus() {
+    const userData = localStorage.getItem('prontaAyudaUser');
+    if (userData) {
+        const u = JSON.parse(userData);
+        regView.style.display     = 'none';
+        mainView.style.display    = 'flex';
+        confirmView.style.display = 'none';
+        displayName.textContent   = `Hola, ${u.nombre.split(' ')[0]}`;
+    } else {
+        regView.style.display     = 'block';
+        mainView.style.display    = 'none';
+        confirmView.style.display = 'none';
+    }
+}
+
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const sabePagar = document.querySelector('input[name="sabe_pagar"]:checked').value === 'si';
+    const userData = {
+        nombre:    document.getElementById('r_nombre').value,
+        dni:       document.getElementById('r_dni').value,
+        telefono:  document.getElementById('r_telefono').value,
+        direccion: document.getElementById('r_direccion').value,
+        sabePagar,
+        pagador1: {
+            nombre:   document.getElementById('p1_nombre').value,
+            telefono: document.getElementById('p1_telefono').value,
+            relacion: document.getElementById('p1_relacion').value
+        },
+        pagador2: {
+            nombre:   document.getElementById('p2_nombre').value,
+            telefono: document.getElementById('p2_telefono').value,
+            relacion: document.getElementById('p2_relacion').value
+        }
+    };
+    localStorage.setItem('prontaAyudaUser', JSON.stringify(userData));
+    checkUserStatus();
+});
+
+btnWhatsapp.addEventListener('click', function(e) {
+    e.preventDefault();
+    const uStr = localStorage.getItem('prontaAyudaUser');
+    if (!uStr) return;
+    const u = JSON.parse(uStr);
+
+    const ts = new Date().toLocaleString('es-AR', { dateStyle: 'short', timeStyle: 'short' });
+    let msg = `🚨 *ALERTA PRONTA AYUDA* 🚨\n`;
+    msg += `📅 ${ts}\n\n`;
+    msg += `*CLIENTE:* ${u.nombre}\n`;
+    msg += `*DNI:* ${u.dni}\n`;
+    msg += `*DIRECCIÓN:* ${u.direccion}\n`;
+    msg += `*TELÉFONO:* ${u.telefono}\n\n`;
+
+    if (!u.sabePagar) {
+        msg += `*👤 PAGADOR PRINCIPAL:*\n`;
+        msg += `  Nombre: ${u.pagador1.nombre} (${u.pagador1.relacion})\n`;
+        msg += `  Tel: ${u.pagador1.telefono}\n`;
+        if (u.pagador2.nombre) {
+            msg += `\n*👤 PAGADOR SECUNDARIO:*\n`;
+            msg += `  Nombre: ${u.pagador2.nombre} (${u.pagador2.relacion})\n`;
+            msg += `  Tel: ${u.pagador2.telefono}\n`;
+        }
+        msg += `\n`;
+    } else {
+        msg += `*(El usuario abona por sus propios medios)*\n\n`;
+    }
+    msg += `➡️ *NECESITO ASISTENCIA INMEDIATA*`;
+
+    setTimeout(() => {
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        const url = isMobile
+            ? `whatsapp://send?phone=${CONFIG.ADMIN_PHONE}&text=${encodeURIComponent(msg)}`
+            : `https://wa.me/${CONFIG.ADMIN_PHONE}?text=${encodeURIComponent(msg)}`;
+        window.open(url, '_blank');
+    }, 300);
+
+    mostrarConfirmacion();
+});
+
+function mostrarConfirmacion() {
+    mainView.style.display    = 'none';
+    confirmView.style.display = 'flex';
+
+    let seg = CONFIG.TIMEOUT_SEG;
+    clearInterval(timerInterval);
+    actualizarTimer(seg);
+
+    timerInterval = setInterval(() => {
+        seg--;
+        actualizarTimer(seg);
+        if (seg <= 0) {
+            clearInterval(timerInterval);
+            confirmTimer.textContent = '⚠️ Si aún no te contactaron, llamanos directamente.';
+        }
+    }, 1000);
+}
+
+function actualizarTimer(seg) {
+    confirmTimer.textContent = seg > 0
+        ? `Te contactamos en menos de ${seg} segundo${seg === 1 ? '' : 's'}...`
+        : '⚠️ Si aún no te contactaron, llamanos directamente.';
+}
+
+function volverAlInicio() {
+    clearInterval(timerInterval);
+    checkUserStatus();
+}
+
+btnReset.addEventListener('click', () => {
+    if (confirm('¿Seguro que querés borrar tus datos y volver a registrarte?')) {
+        localStorage.removeItem('prontaAyudaUser');
+        clearInterval(timerInterval);
+        form.reset();
+        pagadoresSection.style.display = 'none';
+        pagador2Section.style.display  = 'none';
+        document.getElementById('p1_nombre').required   = false;
+        document.getElementById('p1_telefono').required = false;
+        checkUserStatus();
+    }
+});
+
+checkUserStatus();
+
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+            .then(() => console.log('Service Worker registrado'))
+            .catch(err => console.warn('SW error:', err));
+    });
+}
+</script>
+</body>
+</html>

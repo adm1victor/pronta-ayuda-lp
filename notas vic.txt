@@ -1,0 +1,92 @@
+falta subir el  panel  a   GitHub
+
+
+Flujo de trabajo  según yo 
+
+1) envió aplicación al cliente
+2) cliente se registra
+3) llegan los datos al administrador 
+4) los datos pasan al  panel 
+5) se evalúa el pedido del cliente
+6) si se puede se cotiza
+7) si no puede se debe esperar a tener el costo del producto
+8) se cobra al cliente o al pagador 
+9) se adquiere el producto
+10) se avisa al administrador 
+11) se avisa al cliente 
+12) se documenta la entrega 
+13) se entrega el producto 
+
+
+
+Sobre el Panel :
+el panel es muy bueno, mantenerlo asi como esta 
+
+Guithub
+
+
+cd "C:\Users\karig\Desktop\app no borrar\pronta-ayuda-lp"
+git add .
+git commit -m "descripción del cambio"
+git push origin main
+
+
+Flujo de Trabajo actualizado  según la ia 
+
+🚑 Pronta Ayuda LP — Flujo de operación completo
+
+👤 LADO DEL CLIENTE (index.html)
+Primer uso — Registro:
+El cliente abre la app por primera vez y completa un formulario con su nombre, DNI, teléfono y dirección. También indica si puede pagar por sus propios medios o si necesita un pagador externo. En ese caso carga el nombre, teléfono y relación del pagador (y opcionalmente un segundo contacto). Estos datos se guardan en el dispositivo, por lo que no los tiene que volver a cargar nunca.
+Usos siguientes — Pedir ayuda:
+El cliente ve directamente el botón rojo grande. Lo presiona, la app arma automáticamente un mensaje de WhatsApp con todos sus datos y lo envía al número del administrador. Aparece una pantalla de confirmación con una cuenta regresiva indicando que lo van a contactar en menos de 60 segundos.
+
+🖥️ LADO DEL ADMINISTRADOR (panel-admin.html)
+Paso 1 — Recibe el mensaje de WhatsApp
+Le llega al administrador un mensaje estructurado con los datos del cliente: nombre, DNI, dirección, teléfono y situación de pago.
+Paso 2 — Carga el pedido en el panel
+El admin abre el panel y hace clic en "+ Nuevo pedido". Completa:
+
+Datos del cliente (copiados del WhatsApp)
+Tipo de servicio (acompañamiento, enfermería, traslado, etc.)
+Nivel de urgencia (alta, media o baja)
+Descripción detallada del caso
+Costo del servicio y forma de cobro
+Nombre de quien recibe y gestiona el pedido (Entregado por)
+Notas internas opcionales
+
+Paso 3 — Seguimiento del estado
+Cada pedido avanza por tres estados:
+
+⏳ Pendiente → recién ingresado, sin atender
+🔵 En curso → operador asignado, en camino o atendiendo
+✅ Atendido → servicio finalizado
+
+El admin cambia el estado con los botones de cada fila. También puede reabrir un pedido si es necesario.
+Paso 4 — Edición si algo cambia
+Si el costo varía, se agrega información, o se corrige algún dato, el admin usa el botón ✏️ Editar de la fila y modifica lo que necesite sin perder el historial.
+Paso 5 — Monitoreo en tiempo real
+El panel muestra en la barra superior los contadores del día: total de pedidos, pendientes, en curso y atendidos. Se actualiza automáticamente cada 30 segundos.
+Paso 6 — Exportación
+Al cierre del día o cuando se necesite, el admin exporta un archivo Excel con todos los pedidos filtrados por fecha, rango personalizado o estado. El Excel incluye todos los datos del cliente, el detalle del pedido, el costo, la forma de cobro, quién lo entregó y un resumen con el total facturado.
+
+🔄 Resumen visual del flujo
+Cliente abre la app
+       ↓
+Presiona el botón rojo
+       ↓
+WhatsApp llega al admin
+       ↓
+Admin carga el pedido en el panel  →  Estado: PENDIENTE
+       ↓
+Se asigna un operador              →  Estado: EN CURSO
+       ↓
+Servicio finalizado                →  Estado: ATENDIDO
+       ↓
+Exportación Excel al cierre del día
+
+Todo funciona localmente en el navegador sin necesidad de internet ni servidor, usando el almacenamiento del dispositivo. Cuando estés listo para pasar a la siguiente parte del proyecto, avisame.
+
+
+
+

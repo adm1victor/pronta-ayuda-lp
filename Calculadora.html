@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Operativa de Viajes - Specialist Edition</title>
+    <style>
+        :root { --primary: #2563eb; --bg: #f8fafc; --text: #1e293b; --accent: #ef4444; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); padding: 20px; line-height: 1.5; }
+        .wrapper { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 350px; gap: 20px; }
+        .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        h2 { font-size: 1.25rem; margin-top: 0; border-bottom: 2px solid var(--bg); padding-bottom: 10px; color: var(--primary); }
+        .grid-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .field { display: flex; flex-direction: column; gap: 5px; }
+        label { font-size: 0.85rem; font-weight: 600; color: #64748b; }
+        input { padding: 8px 12px; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 1rem; width: 100%; box-sizing: border-box; }
+        input:focus { outline: 2px solid var(--primary); border-color: transparent; }
+        .sticky-result { position: sticky; top: 20px; height: fit-content; }
+        .master-box { background: var(--primary); color: white; padding: 25px; border-radius: 12px; text-align: center; }
+        .master-value { font-size: 2.5rem; font-weight: 800; display: block; margin: 10px 0; }
+        .breakdown { margin-top: 15px; font-size: 0.9rem; }
+        .row-total { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        @media (max-width: 768px) { .wrapper { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="main-content">
+        <div class="card" style="margin-bottom: 20px;">
+            <h2>A. Gastos Fijos (Mensuales/Diarios)</h2>
+            <div class="grid-inputs">
+                <div class="field">
+                    <label>Comunicación ($/mes)</label>
+                    <input type="number" id="comunicacion" value="10000" oninput="calculate()">
+                </div>
+                <div class="field">
+                    <label>Seguro Moto ($/mes)</label>
+                    <input type="number" id="seguro" value="14000" oninput="calculate()">
+                </div>
+                <div class="field">
+                    <label>Otros Gastos Diarios ($)</label>
+                    <input type="number" id="gastosDiarios" value="800" oninput="calculate()">
+                </div>
+                <div class="field">
+                    <label>Amortización Moto ($/km)</label>
+                    <input type="number" id="amortKm" value="33.33" step="0.01" oninput="calculate()">
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 20px;">
+            <h2>B. Cargos Fijos x Viaje</h2>
+            <div class="grid-inputs">
+                <div class="field">
+                    <label>Tarifa Base ($)</label>
+                    <input type="number" id="tarifaBase" value="1000" oninput="calculate()">
+                </div>
+                <div class="field">
+                    <label>Bono Clima/Hora Pico ($)</label>
+                    <input type="number" id="bono" value="100" oninput="calculate()">
+                </div>
+                <div class="field">
+                    <label>Espera en Local ($)</label>
+                    <input type="number" id="espera" value="300" oninput="calculate()">
+                </div>
+                <div class="field">
+                    <label>Propinas ($)</label>
+                    <input type="number" id="propinas" value="200" oninput="calculate()">
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>C & D. Variables y Combustible</h2>
+            <div class="grid-inputs">
+                <div class="field">
+                    <label>KM Recorridos</label>
+                    <input type="number" id="km" value="10" oninput="calculate()">
+                </div>
+                <div class="field">
+                    <label>Precio Litro Nafta ($)</label>
+                    <input type="number" id="precioNafta" value="1450" oninput="calculate()">
+                </div>
+                <div class="field">
+                    <label>Pago por KM ($)</label>
+                    <input type="number" id="pagoKm" value="200" oninput="calculate()">
+                </div>
+                <div class="field">
+                    <label>Cargo Aplicación (E) ($)</label>
+                    <input type="number" id="cargoApp" value="500" oninput="calculate()">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sticky-result">
+        <div class="master-box">
+            <span>MASTER RESULT (A+B+C+D+E+Z)</span>
+            <span class="master-value" id="masterResult">$0.00</span>
+            <div class="breakdown">
+                <div class="row-total"><span>Gastos Fijos (Día):</span> <span id="outA">$0</span></div>
+                <div class="row-total"><span>Fijos Viaje:</span> <span id="outB">$0</span></div>
+                <div class="row-total"><span>Variable Dist:</span> <span id="outC">$0</span></div>
+                <div class="row-total"><span>Combustible:</span> <span id="outD">$0</span></div>
+                <div class="row-total"><span>Amortización:</span> <span id="outZ">$0</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function calculate() {
+        // Inputs
+        const comunicacion = (parseFloat(document.getElementById('comunicacion').value) || 0) / 30;
+        const seguro = (parseFloat(document.getElementById('seguro').value) || 0) / 30;
+        const gastosDiarios = parseFloat(document.getElementById('gastosDiarios').value) || 0;
+        const amortKmRate = parseFloat(document.getElementById('amortKm').value) || 0;
+        
+        const tarifaBase = parseFloat(document.getElementById('tarifaBase').value) || 0;
+        const bono = parseFloat(document.getElementById('bono').value) || 0;
+        const espera = parseFloat(document.getElementById('espera').value) || 0;
+        const propinas = parseFloat(document.getElementById('propinas').value) || 0;
+        
+        const km = parseFloat(document.getElementById('km').value) || 0;
+        const precioNafta = parseFloat(document.getElementById('precioNafta').value) || 0;
+        const pagoKm = parseFloat(document.getElementById('pagoKm').value) || 0;
+        const cargoApp = parseFloat(document.getElementById('cargoApp').value) || 0;
+
+        // Logic - Strict Excel Replica
+        const totalA = comunicacion + seguro + gastosDiarios;
+        const totalB = tarifaBase + bono + espera + propinas;
+        const totalC = km * pagoKm;
+        const totalD = (km / 33.33) * precioNafta; // Ratio basado en tu tabla (10km -> 435 con nafta 1450)
+        const totalZ = km * amortKmRate;
+        
+        const master = totalA + totalB + totalC + totalD + totalZ + cargoApp;
+
+        // UI Update
+        document.getElementById('outA').innerText = '$' + totalA.toFixed(2);
+        document.getElementById('outB').innerText = '$' + totalB.toFixed(2);
+        document.getElementById('outC').innerText = '$' + totalC.toFixed(2);
+        document.getElementById('outD').innerText = '$' + totalD.toFixed(2);
+        document.getElementById('outZ').innerText = '$' + totalZ.toFixed(2);
+        document.getElementById('masterResult').innerText = '$' + master.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    }
+
+    // Init
+    calculate();
+</script>
+
+</body>
+</html>

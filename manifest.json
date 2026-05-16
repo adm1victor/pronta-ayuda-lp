@@ -1,0 +1,18 @@
+{
+  "name": "Pronta Ayuda LP",
+  "short_name": "Pronta Ayuda",
+  "description": "App de asistencia inmediata Pronta Ayuda La Plata",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#1e293b",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3063/3063206.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
