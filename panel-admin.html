@@ -26,11 +26,25 @@ body{background:var(--bg);color:var(--text);font-family:var(--fh);min-height:100
 .live-dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:blink 1.5s infinite;}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
 
+.pct-bar{display:flex;align-items:center;gap:14px;padding:12px 32px;background:rgba(255,167,38,0.06);border-bottom:1px solid rgba(255,167,38,0.15);flex-wrap:wrap;}
+.pct-label{font-size:12px;color:var(--accent2);font-family:var(--fm);font-weight:700;text-transform:uppercase;letter-spacing:1px;white-space:nowrap;}
+.pct-input-wrap{display:flex;align-items:center;gap:6px;background:rgba(15,23,42,0.8);border:1px solid rgba(255,167,38,0.3);border-radius:8px;padding:6px 12px;}
+.pct-input{background:transparent;border:none;outline:none;color:var(--accent2);font-family:var(--fm);font-size:15px;font-weight:700;width:52px;text-align:center;}
+.pct-sym{color:var(--accent2);font-family:var(--fm);font-size:15px;font-weight:700;}
+.btn-pct-save{padding:7px 16px;border-radius:8px;background:rgba(255,167,38,0.15);border:1px solid rgba(255,167,38,0.35);color:var(--accent2);font-family:var(--fh);font-size:12px;font-weight:700;cursor:pointer;transition:all 0.2s;}
+.btn-pct-save:hover{background:rgba(255,167,38,0.25);}
+.pct-pill{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+.pct-chip{font-size:12px;font-family:var(--fm);padding:5px 12px;border-radius:20px;}
+.pct-chip.moto{background:rgba(59,130,246,0.12);color:var(--blue);border:1px solid rgba(59,130,246,0.25);}
+.pct-chip.admin{background:rgba(34,197,94,0.10);color:var(--green);border:1px solid rgba(34,197,94,0.22);}
+.pct-saved{font-size:11px;color:var(--green);font-family:var(--fm);opacity:0;transition:opacity 0.4s;}
+.pct-saved.show{opacity:1;}
+
 .stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-bottom:1px solid var(--border);}
 .stat-card{background:var(--surface);padding:20px 28px;display:flex;flex-direction:column;gap:4px;}
 .stat-label{font-size:11px;color:var(--text-dim);font-family:var(--fm);text-transform:uppercase;letter-spacing:1.5px;}
 .stat-value{font-size:32px;font-weight:800;line-height:1;}
-.stat-value.red{color:var(--accent);} .stat-value.yellow{color:var(--pending);} .stat-value.blue{color:var(--blue);} .stat-value.green{color:var(--green);}
+.stat-value.red{color:var(--accent);}.stat-value.yellow{color:var(--pending);}.stat-value.blue{color:var(--blue);}.stat-value.green{color:var(--green);}
 
 .toolbar{display:flex;align-items:center;gap:12px;padding:16px 32px;border-bottom:1px solid var(--border);flex-wrap:wrap;}
 .search-box{flex:1;min-width:200px;display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 14px;}
@@ -70,8 +84,6 @@ tbody td{padding:14px 14px;vertical-align:middle;}
 .td-dni{font-family:var(--fm);font-size:12px;color:var(--text-dim);}
 .td-dir{font-size:13px;color:#94a3b8;max-width:160px;}
 .td-tel{font-family:var(--fm);font-size:13px;}
-
-/* Pedido y costo en tabla */
 .td-pedido{max-width:180px;}
 .pedido-tipo{font-size:12px;font-weight:700;color:var(--accent2);font-family:var(--fm);text-transform:uppercase;letter-spacing:0.5px;}
 .pedido-desc{font-size:12px;color:#94a3b8;margin-top:3px;line-height:1.4;}
@@ -79,8 +91,21 @@ tbody td{padding:14px 14px;vertical-align:middle;}
 .urg-alta{background:rgba(255,59,92,0.15);color:var(--accent);border:1px solid rgba(255,59,92,0.3);}
 .urg-media{background:rgba(251,191,36,0.12);color:var(--pending);border:1px solid rgba(251,191,36,0.25);}
 .urg-baja{background:rgba(34,197,94,0.1);color:var(--green);border:1px solid rgba(34,197,94,0.2);}
-.td-costo{font-family:var(--fm);font-size:14px;font-weight:600;color:var(--green);white-space:nowrap;}
 .sin-costo{color:var(--text-dim);font-size:12px;font-style:italic;}
+
+/* Celda pago motoquero */
+.moto-pago{font-size:12px;font-family:var(--fm);margin-top:5px;}
+.mp-moto{color:var(--blue);font-weight:700;}
+.mp-admin{color:var(--green);font-weight:700;}
+.mp-label{color:var(--text-dim);font-size:10px;}
+.moto-cbu{font-size:10px;color:var(--text-dim);font-family:var(--fm);margin-top:3px;word-break:break-all;}
+
+/* Botón pago motoquero */
+.btn-pago{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;font-family:var(--fm);cursor:pointer;border:none;transition:all 0.2s;white-space:nowrap;display:inline-flex;align-items:center;gap:5px;margin-top:6px;}
+.btn-pago.falta{background:rgba(255,59,92,0.13);color:var(--accent);border:1px solid rgba(255,59,92,0.35);}
+.btn-pago.falta:hover{background:rgba(255,59,92,0.22);}
+.btn-pago.pagado{background:rgba(34,197,94,0.13);color:var(--green);border:1px solid rgba(34,197,94,0.35);}
+.btn-pago.pagado:hover{background:rgba(34,197,94,0.22);}
 
 .badge{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;white-space:nowrap;}
 .badge-pending{background:rgba(251,191,36,0.12);color:var(--pending);border:1px solid rgba(251,191,36,0.25);}
@@ -101,7 +126,7 @@ tbody td{padding:14px 14px;vertical-align:middle;}
 .empty-state{text-align:center;padding:80px 20px;color:var(--text-dim);}
 .empty-icon{font-size:48px;margin-bottom:16px;opacity:0.3;}
 
-/* ── MODAL BASE ── */
+/* MODALES */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(4px);z-index:200;align-items:center;justify-content:center;}
 .modal-overlay.open{display:flex;}
 .modal{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:32px;width:100%;max-width:560px;margin:20px;max-height:90vh;overflow-y:auto;box-shadow:0 25px 50px rgba(0,0,0,0.6);}
@@ -116,9 +141,9 @@ tbody td{padding:14px 14px;vertical-align:middle;}
 .modal-textarea{width:100%;background:rgba(15,23,42,0.8);border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--text);font-family:var(--fm);font-size:13px;resize:vertical;min-height:72px;}
 .modal-textarea:focus{outline:none;border-color:var(--accent);}
 .modal-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.modal-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
 .modal-section{font-size:13px;color:var(--accent2);font-weight:700;margin:20px 0 12px;border-top:1px solid var(--border);padding-top:16px;}
 .modal-section-red{font-size:13px;color:var(--accent);font-weight:700;margin:20px 0 12px;border-top:1px solid var(--border);padding-top:16px;}
+.modal-section-blue{font-size:13px;color:var(--blue);font-weight:700;margin:20px 0 12px;border-top:1px solid var(--border);padding-top:16px;}
 .modal-actions{display:flex;gap:10px;margin-top:24px;}
 .btn-modal-cancel{flex:1;padding:12px;border-radius:10px;background:transparent;border:1px solid var(--border);color:var(--text-dim);font-family:var(--fh);font-size:14px;cursor:pointer;}
 .btn-modal-cancel:hover{background:rgba(255,255,255,0.05);color:var(--text);}
@@ -130,7 +155,13 @@ tbody td{padding:14px 14px;vertical-align:middle;}
 input[type="radio"]{accent-color:var(--accent);width:16px;height:16px;}
 #modal-pagadores{display:none;}
 
-/* Costo resaltado en modal */
+.pago-preview{background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.2);border-radius:10px;padding:12px 16px;display:flex;gap:24px;flex-wrap:wrap;margin-top:8px;}
+.pago-preview .pv-item{display:flex;flex-direction:column;gap:2px;}
+.pago-preview .pv-label{font-size:10px;color:var(--text-dim);font-family:var(--fm);text-transform:uppercase;letter-spacing:1px;}
+.pago-preview .pv-val{font-size:15px;font-weight:700;font-family:var(--fm);}
+.pago-preview .pv-val.blue{color:var(--blue);}
+.pago-preview .pv-val.green{color:var(--green);}
+
 .costo-wrap{position:relative;}
 .costo-prefix{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--green);font-family:var(--fm);font-size:14px;font-weight:700;}
 .modal-input.costo-input{padding-left:30px;color:var(--green);font-size:16px;font-weight:700;}
@@ -138,10 +169,10 @@ input[type="radio"]{accent-color:var(--accent);width:16px;height:16px;}
 ::-webkit-scrollbar{width:6px;height:6px;}
 ::-webkit-scrollbar-thumb{background:var(--muted);border-radius:3px;}
 @media(max-width:768px){
-  .topbar,.toolbar,.table-wrap{padding-left:16px;padding-right:16px;}
+  .topbar,.toolbar,.table-wrap,.pct-bar{padding-left:16px;padding-right:16px;}
   .stats-bar{grid-template-columns:repeat(2,1fr);}
   .td-dir,.td-dni,.td-pedido{display:none;}
-  .modal-row,.modal-row-3{grid-template-columns:1fr;}
+  .modal-row{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -160,11 +191,25 @@ input[type="radio"]{accent-color:var(--accent);width:16px;height:16px;}
   </div>
 </header>
 
+<div class="pct-bar">
+  <span class="pct-label">% Pago Motoquero:</span>
+  <div class="pct-input-wrap">
+    <input type="number" class="pct-input" id="pct-input" min="0" max="100" step="1" placeholder="70">
+    <span class="pct-sym">%</span>
+  </div>
+  <button class="btn-pct-save" onclick="guardarPorcentaje()">Guardar</button>
+  <div class="pct-pill" id="pct-pills" style="display:none;">
+    <span class="pct-chip moto" id="chip-moto">🏍️ Motoquero: —</span>
+    <span class="pct-chip admin" id="chip-admin">🏢 Admin: —</span>
+  </div>
+  <span class="pct-saved" id="pct-saved">✓ Guardado</span>
+</div>
+
 <div class="stats-bar">
-  <div class="stat-card"><span class="stat-label">Total del día</span><span class="stat-value red"    id="stat-total">0</span></div>
-  <div class="stat-card"><span class="stat-label">Pendientes</span>   <span class="stat-value yellow" id="stat-pending">0</span></div>
-  <div class="stat-card"><span class="stat-label">En curso</span>     <span class="stat-value blue"   id="stat-progress">0</span></div>
-  <div class="stat-card"><span class="stat-label">Atendidos</span>    <span class="stat-value green"  id="stat-done">0</span></div>
+  <div class="stat-card"><span class="stat-label">Total del día</span><span class="stat-value red" id="stat-total">0</span></div>
+  <div class="stat-card"><span class="stat-label">Pendientes</span><span class="stat-value yellow" id="stat-pending">0</span></div>
+  <div class="stat-card"><span class="stat-label">En curso</span><span class="stat-value blue" id="stat-progress">0</span></div>
+  <div class="stat-card"><span class="stat-label">Atendidos</span><span class="stat-value green" id="stat-done">0</span></div>
 </div>
 
 <div class="toolbar">
@@ -173,16 +218,15 @@ input[type="radio"]{accent-color:var(--accent);width:16px;height:16px;}
     <input type="text" id="search-input" placeholder="Buscar por nombre, DNI, dirección, teléfono...">
   </div>
   <div class="filter-group">
-    <button class="filter-btn active"     onclick="setFilter('all',this)">Todos</button>
-    <button class="filter-btn f-pending"  onclick="setFilter('pending',this)">⏳ Pendiente</button>
+    <button class="filter-btn active" onclick="setFilter('all',this)">Todos</button>
+    <button class="filter-btn f-pending" onclick="setFilter('pending',this)">⏳ Pendiente</button>
     <button class="filter-btn f-progress" onclick="setFilter('progress',this)">🔵 En curso</button>
-    <button class="filter-btn f-done"     onclick="setFilter('done',this)">✅ Atendido</button>
+    <button class="filter-btn f-done" onclick="setFilter('done',this)">✅ Atendido</button>
   </div>
   <button class="btn-excel" onclick="toggleExport()">📊 Exportar Excel</button>
   <button class="btn-nuevo" onclick="abrirModal()">+ Nuevo pedido</button>
 </div>
 
-<!-- PANEL EXPORTACIÓN -->
 <div class="export-panel" id="export-panel">
   <span class="exp-label">Rango:</span>
   <select class="exp-select" id="exp-rango" onchange="toggleFechas()">
@@ -220,8 +264,9 @@ input[type="radio"]{accent-color:var(--accent);width:16px;height:16px;}
         <th class="td-dir">Dirección</th>
         <th>Teléfono</th>
         <th class="td-pedido">Pedido</th>
-        <th>Costo</th>
-        <th>Entregado por</th>
+        <th>Costo / Distrib.</th>
+        <th>Motoquero</th>
+        <th>Pago Moto</th>
         <th>Estado</th>
         <th>Acciones</th>
       </tr>
@@ -234,15 +279,11 @@ input[type="radio"]{accent-color:var(--accent);width:16px;height:16px;}
   </div>
 </div>
 
-<!-- ══════════════════════
-     MODAL: NUEVO PEDIDO
-══════════════════════ -->
+<!-- MODAL: NUEVO PEDIDO -->
 <div class="modal-overlay" id="modal-overlay">
   <div class="modal">
     <h2>Nuevo Pedido</h2>
     <p class="modal-sub">Cargá los datos desde el mensaje de WhatsApp</p>
-
-    <!-- Datos del cliente -->
     <div class="modal-row">
       <div class="modal-field">
         <label class="modal-label">Nombre y Apellido *</label>
@@ -285,8 +326,6 @@ input[type="radio"]{accent-color:var(--accent);width:16px;height:16px;}
         <input type="text" class="modal-input" id="m_p1_relacion" placeholder="Hija, Sobrino, etc.">
       </div>
     </div>
-
-    <!-- SECCIÓN PEDIDO -->
     <div class="modal-section-red">📋 Detalle del Pedido</div>
     <div class="modal-row">
       <div class="modal-field">
@@ -316,15 +355,13 @@ input[type="radio"]{accent-color:var(--accent);width:16px;height:16px;}
       <label class="modal-label">Descripción del pedido</label>
       <textarea class="modal-textarea" id="m_descripcion" placeholder="Ej: Paciente con movilidad reducida necesita acompañamiento para turno médico..."></textarea>
     </div>
-
-    <!-- SECCIÓN COSTO -->
     <div class="modal-section">💲 Costo del Servicio</div>
     <div class="modal-row">
       <div class="modal-field">
         <label class="modal-label">Costo total ($)</label>
         <div class="costo-wrap">
           <span class="costo-prefix">$</span>
-          <input type="number" class="modal-input costo-input" id="m_costo" placeholder="0.00" min="0" step="0.01">
+          <input type="number" class="modal-input costo-input" id="m_costo" placeholder="0.00" min="0" step="0.01" oninput="actualizarPreviewNuevo()">
         </div>
       </div>
       <div class="modal-field">
@@ -338,44 +375,47 @@ input[type="radio"]{accent-color:var(--accent);width:16px;height:16px;}
         </select>
       </div>
     </div>
-
-    <!-- Entregado por + Notas -->
+    <div class="pago-preview" id="m_pago_preview" style="display:none;">
+      <div class="pv-item"><span class="pv-label">🏍️ Motoquero</span><span class="pv-val blue" id="m_prev_moto">$0</span></div>
+      <div class="pv-item"><span class="pv-label">🏢 Admin</span><span class="pv-val green" id="m_prev_admin">$0</span></div>
+      <div class="pv-item"><span class="pv-label">% aplicado</span><span class="pv-val" style="color:var(--accent2)" id="m_prev_pct">—</span></div>
+    </div>
+    <div class="modal-section-blue">🏍️ Motoquero</div>
     <div class="modal-row">
       <div class="modal-field">
-        <label class="modal-label">Entregado por</label>
+        <label class="modal-label">Nombre del Motoquero</label>
         <input type="text" class="modal-input" id="m_entregado_por" placeholder="Nombre del operador/a">
       </div>
       <div class="modal-field">
-        <label class="modal-label">Notas internas (opcional)</label>
-        <input type="text" class="modal-input" id="m_notas" placeholder="Observaciones para el equipo...">
+        <label class="modal-label">Alias o CBU</label>
+        <input type="text" class="modal-input" id="m_moto_cbu" placeholder="alias.pago / CBU">
       </div>
     </div>
-
+    <div class="modal-field">
+      <label class="modal-label">Notas internas (opcional)</label>
+      <input type="text" class="modal-input" id="m_notas" placeholder="Observaciones para el equipo...">
+    </div>
     <div class="modal-actions">
       <button class="btn-modal-cancel" onclick="cerrarModal()">Cancelar</button>
-      <button class="btn-modal-save"   onclick="guardarPedido()">Guardar Pedido</button>
+      <button class="btn-modal-save" onclick="guardarPedido()">Guardar Pedido</button>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════
-     MODAL: EDITAR PEDIDO
-══════════════════════ -->
+<!-- MODAL: EDITAR PEDIDO -->
 <div class="modal-overlay" id="modal-edit-overlay">
   <div class="modal">
     <h2>✏️ Editar Pedido</h2>
     <p class="modal-sub" id="edit-modal-sub">Modificá los datos del pedido</p>
-
-    <!-- Datos del cliente -->
     <div class="modal-section">👤 Datos del Cliente</div>
     <div class="modal-row">
       <div class="modal-field">
         <label class="modal-label">Nombre y Apellido</label>
-        <input type="text" class="modal-input" id="e_nombre" placeholder="Juan Pérez">
+        <input type="text" class="modal-input" id="e_nombre">
       </div>
       <div class="modal-field">
         <label class="modal-label">DNI</label>
-        <input type="text" class="modal-input" id="e_dni" placeholder="12345678">
+        <input type="text" class="modal-input" id="e_dni">
       </div>
     </div>
     <div class="modal-field">
@@ -386,8 +426,6 @@ input[type="radio"]{accent-color:var(--accent);width:16px;height:16px;}
       <label class="modal-label">Teléfono</label>
       <input type="text" class="modal-input" id="e_telefono">
     </div>
-
-    <!-- Sección pedido -->
     <div class="modal-section-red">📋 Detalle del Pedido</div>
     <div class="modal-row">
       <div class="modal-field">
@@ -415,17 +453,15 @@ input[type="radio"]{accent-color:var(--accent);width:16px;height:16px;}
     </div>
     <div class="modal-field">
       <label class="modal-label">Descripción del pedido</label>
-      <textarea class="modal-textarea" id="e_descripcion" placeholder="Descripción del servicio requerido..."></textarea>
+      <textarea class="modal-textarea" id="e_descripcion"></textarea>
     </div>
-
-    <!-- Costo -->
     <div class="modal-section">💲 Costo del Servicio</div>
     <div class="modal-row">
       <div class="modal-field">
         <label class="modal-label">Costo total ($)</label>
         <div class="costo-wrap">
           <span class="costo-prefix">$</span>
-          <input type="number" class="modal-input costo-input" id="e_costo" placeholder="0.00" min="0" step="0.01">
+          <input type="number" class="modal-input costo-input" id="e_costo" placeholder="0.00" min="0" step="0.01" oninput="actualizarPreviewEditar()">
         </div>
       </div>
       <div class="modal-field">
@@ -439,19 +475,26 @@ input[type="radio"]{accent-color:var(--accent);width:16px;height:16px;}
         </select>
       </div>
     </div>
-
-    <!-- Entregado por + Notas -->
+    <div class="pago-preview" id="e_pago_preview" style="display:none;">
+      <div class="pv-item"><span class="pv-label">🏍️ Motoquero</span><span class="pv-val blue" id="e_prev_moto">$0</span></div>
+      <div class="pv-item"><span class="pv-label">🏢 Admin</span><span class="pv-val green" id="e_prev_admin">$0</span></div>
+      <div class="pv-item"><span class="pv-label">% aplicado</span><span class="pv-val" style="color:var(--accent2)" id="e_prev_pct">—</span></div>
+    </div>
+    <div class="modal-section-blue">🏍️ Motoquero</div>
     <div class="modal-row">
       <div class="modal-field">
-        <label class="modal-label">Entregado por</label>
+        <label class="modal-label">Nombre del Motoquero</label>
         <input type="text" class="modal-input" id="e_entregado_por" placeholder="Nombre del operador/a">
       </div>
       <div class="modal-field">
-        <label class="modal-label">Notas internas</label>
-        <input type="text" class="modal-input" id="e_notas" placeholder="Observaciones para el equipo...">
+        <label class="modal-label">Alias o CBU</label>
+        <input type="text" class="modal-input" id="e_moto_cbu" placeholder="alias.pago / CBU">
       </div>
     </div>
-
+    <div class="modal-field">
+      <label class="modal-label">Notas internas</label>
+      <input type="text" class="modal-input" id="e_notas" placeholder="Observaciones para el equipo...">
+    </div>
     <div class="modal-actions">
       <button class="btn-modal-cancel" onclick="cerrarEditModal()">Cancelar</button>
       <button class="btn-modal-save green" onclick="guardarEdicion()">💾 Guardar Cambios</button>
@@ -460,34 +503,94 @@ input[type="radio"]{accent-color:var(--accent);width:16px;height:16px;}
 </div>
 
 <script>
-/* ═══════════════════════════
-   STORAGE
-═══════════════════════════ */
-const KEY = 'pa_admin_pedidos';
+const KEY     = 'pa_admin_pedidos';
+const KEY_PCT = 'pa_admin_porcentaje';
+
 function loadPedidos(){ try{ return JSON.parse(localStorage.getItem(KEY))||[]; }catch{ return []; } }
 function savePedidos(d){ localStorage.setItem(KEY, JSON.stringify(d)); }
+function loadPct(){ const v=parseFloat(localStorage.getItem(KEY_PCT)); return isNaN(v)?null:v; }
+function savePct(v){ localStorage.setItem(KEY_PCT, v); }
 
-let pedidos = loadPedidos();
-let filtro  = 'all';
-let busq    = '';
-let editId  = null;
+let pedidos    = loadPedidos();
+let filtro     = 'all';
+let busq       = '';
+let editId     = null;
+let porcentaje = loadPct();
 
 function genId(){ return 'PA-'+Date.now().toString(36).toUpperCase(); }
+function fmtARS(n){ return '$'+parseFloat(n).toLocaleString('es-AR',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+
+/* ── PORCENTAJE ── */
+function initPct(){
+  if(porcentaje!==null){ document.getElementById('pct-input').value=porcentaje; actualizarChips(); }
+}
+function guardarPorcentaje(){
+  const v=parseFloat(document.getElementById('pct-input').value);
+  if(isNaN(v)||v<0||v>100){ alert('Ingresá un porcentaje entre 0 y 100.'); return; }
+  porcentaje=v; savePct(v); actualizarChips();
+  const s=document.getElementById('pct-saved');
+  s.classList.add('show'); setTimeout(()=>s.classList.remove('show'),2000);
+  render();
+}
+function actualizarChips(){
+  if(porcentaje===null) return;
+  document.getElementById('chip-moto').textContent  = `🏍️ Motoquero: ${porcentaje}%`;
+  document.getElementById('chip-admin').textContent = `🏢 Admin: ${100-porcentaje}%`;
+  document.getElementById('pct-pills').style.display='flex';
+}
+function calcPagos(costo){
+  if(porcentaje===null||costo==null||parseFloat(costo)<=0) return null;
+  const moto  = parseFloat((costo*porcentaje/100).toFixed(2));
+  const admin = parseFloat((costo-moto).toFixed(2));
+  return { moto, admin, pct:porcentaje };
+}
+
+/* ── PREVIEWS MODAL ── */
+function actualizarPreviewNuevo(){
+  const c=parseFloat(document.getElementById('m_costo').value);
+  const prev=document.getElementById('m_pago_preview');
+  if(!c||c<=0||porcentaje===null){ prev.style.display='none'; return; }
+  const p=calcPagos(c);
+  document.getElementById('m_prev_moto').textContent  = fmtARS(p.moto);
+  document.getElementById('m_prev_admin').textContent = fmtARS(p.admin);
+  document.getElementById('m_prev_pct').textContent   = p.pct+'%';
+  prev.style.display='flex';
+}
+function actualizarPreviewEditar(){
+  const c=parseFloat(document.getElementById('e_costo').value);
+  const prev=document.getElementById('e_pago_preview');
+  if(!c||c<=0||porcentaje===null){ prev.style.display='none'; return; }
+  const p=calcPagos(c);
+  document.getElementById('e_prev_moto').textContent  = fmtARS(p.moto);
+  document.getElementById('e_prev_admin').textContent = fmtARS(p.admin);
+  document.getElementById('e_prev_pct').textContent   = p.pct+'%';
+  prev.style.display='flex';
+}
+
+/* ── TOGGLE PAGO MOTOQUERO ── */
+function togglePagoMoto(id){
+  const i=pedidos.findIndex(p=>p.id===id);
+  if(i<0) return;
+  pedidos[i].moto_pagado = !pedidos[i].moto_pagado;
+  savePedidos(pedidos);
+  render();
+}
 
 /* ── RENDER ── */
 function render(){
-  const tbody = document.getElementById('pedidos-tbody');
-  const empty = document.getElementById('empty-state');
+  const tbody=document.getElementById('pedidos-tbody');
+  const empty=document.getElementById('empty-state');
 
-  let lista = pedidos.filter(p => {
-    const mF = filtro==='all' || p.estado===filtro;
-    const q  = busq.toLowerCase();
-    const mQ = !q || [p.nombre,p.dni,p.direccion,p.telefono,p.tipo||'',p.descripcion||''].some(v=>(v||'').toLowerCase().includes(q));
-    return mF && mQ;
+  let lista=pedidos.filter(p=>{
+    const mF=filtro==='all'||p.estado===filtro;
+    const q=busq.toLowerCase();
+    const mQ=!q||[p.nombre,p.dni,p.direccion,p.telefono,p.tipo||'',p.descripcion||'',p.entregado_por||'']
+      .some(v=>(v||'').toLowerCase().includes(q));
+    return mF&&mQ;
   }).sort((a,b)=>b.ts-a.ts);
 
-  const hoy = new Date().toDateString();
-  const hd  = pedidos.filter(p=>new Date(p.ts).toDateString()===hoy);
+  const hoy=new Date().toDateString();
+  const hd=pedidos.filter(p=>new Date(p.ts).toDateString()===hoy);
   document.getElementById('stat-total').textContent    = hd.length;
   document.getElementById('stat-pending').textContent  = pedidos.filter(p=>p.estado==='pending').length;
   document.getElementById('stat-progress').textContent = pedidos.filter(p=>p.estado==='progress').length;
@@ -496,67 +599,92 @@ function render(){
   if(!lista.length){ tbody.innerHTML=''; empty.style.display='block'; return; }
   empty.style.display='none';
 
-  const bMap = {
+  const bMap={
     pending: '<span class="badge badge-pending">⏳ Pendiente</span>',
     progress:'<span class="badge badge-progress">🔵 En curso</span>',
     done:    '<span class="badge badge-done">✅ Atendido</span>'
   };
-
-  const aMap = p => {
-    const btns = {
+  const aMap=p=>{
+    const btns={
       pending: `<button class="btn-action progress" onclick="cambiar('${p.id}','progress')">En curso</button>
                 <button class="btn-action done"     onclick="cambiar('${p.id}','done')">Atendido</button>`,
       progress:`<button class="btn-action done"     onclick="cambiar('${p.id}','done')">Atendido</button>
                 <button class="btn-action"          onclick="cambiar('${p.id}','pending')">Reabrir</button>`,
       done:    `<button class="btn-action"          onclick="cambiar('${p.id}','pending')">Reabrir</button>`
     }[p.estado];
-    return btns +
-      `<button class="btn-action edit" onclick="abrirEditModal('${p.id}')">✏️ Editar</button>` +
+    return btns+
+      `<button class="btn-action edit" onclick="abrirEditModal('${p.id}')">✏️ Editar</button>`+
       `<button class="btn-action del"  onclick="borrar('${p.id}')">🗑</button>`;
   };
-
-  const urgMap = u => ({
-    alta: '<span class="pedido-urgencia urg-alta">🔴 Urgencia Alta</span>',
-    media:'<span class="pedido-urgencia urg-media">🟡 Urgencia Media</span>',
-    baja: '<span class="pedido-urgencia urg-baja">🟢 Urgencia Baja</span>'
+  const urgMap=u=>({
+    alta: '<span class="pedido-urgencia urg-alta">🔴 Alta</span>',
+    media:'<span class="pedido-urgencia urg-media">🟡 Media</span>',
+    baja: '<span class="pedido-urgencia urg-baja">🟢 Baja</span>'
   }[u||'media']);
 
-  const costoCell = p => {
-    if(p.costo && parseFloat(p.costo)>0){
-      const c = parseFloat(p.costo).toLocaleString('es-AR',{minimumFractionDigits:2,maximumFractionDigits:2});
-      const fc = p.forma_cobro ? `<div style="font-size:10px;color:var(--text-dim);margin-top:2px">${p.forma_cobro}</div>` : '';
-      return `<span style="color:var(--green);font-weight:700;">$${c}</span>${fc}`;
+  /* Celda costo con distribución */
+  const costoCell=p=>{
+    if(!p.costo||parseFloat(p.costo)<=0) return `<span class="sin-costo">Sin asignar</span>`;
+    const c=parseFloat(p.costo);
+    const cFmt=fmtARS(c);
+    const fc=p.forma_cobro?`<div style="font-size:10px;color:var(--text-dim);margin-top:2px">${p.forma_cobro}</div>`:'';
+    const pg=calcPagos(c);
+    let dist='';
+    if(pg){
+      dist=`<div style="margin-top:5px;font-size:11px;font-family:var(--fm);">
+        <span style="color:var(--text-dim)">🏍️</span> <span style="color:var(--blue);font-weight:700">${fmtARS(pg.moto)}</span>
+        <span style="color:var(--text-dim);margin:0 3px">(${pg.pct}%)</span><br>
+        <span style="color:var(--text-dim)">🏢</span> <span style="color:var(--green);font-weight:700">${fmtARS(pg.admin)}</span>
+        <span style="color:var(--text-dim);margin:0 3px">(${100-pg.pct}%)</span>
+      </div>`;
     }
-    return `<span class="sin-costo">Sin asignar</span>`;
+    return `<span style="color:var(--green);font-weight:700;">${cFmt}</span>${fc}${dist}`;
   };
 
-  const pedidoCell = p => {
-    if(!p.tipo && !p.descripcion) return `<span style="color:var(--text-dim);font-size:12px;font-style:italic">Sin detalle</span>`;
-    const tipo = p.tipo ? `<div class="pedido-tipo">${p.tipo}</div>` : '';
-    const desc = p.descripcion ? `<div class="pedido-desc">${p.descripcion.length>60?p.descripcion.substring(0,60)+'…':p.descripcion}</div>` : '';
-    const urg  = urgMap(p.urgencia);
-    return tipo + desc + urg;
+  /* Celda motoquero */
+  const motoCell=p=>{
+    const nombre=p.entregado_por
+      ?`<div style="font-size:13px;font-weight:600;">🏍️ ${p.entregado_por}</div>`
+      :'<span style="color:var(--text-dim);font-size:12px;font-style:italic">—</span>';
+    const cbu=p.moto_cbu?`<div class="moto-cbu">💳 ${p.moto_cbu}</div>`:'';
+    return nombre+cbu;
   };
 
-  tbody.innerHTML = lista.map(p=>{
-    const f  = new Date(p.ts);
-    const hr = f.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});
-    const di = f.toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit',year:'2-digit'});
-    const pg = p.tienePagador && p.pagador1_nombre
-      ? `<div class="pagador-tag">👤 ${p.pagador1_nombre} · ${p.pagador1_telefono}</div>` : '';
+  /* Celda botón pago motoquero */
+  const pagoMotoCell=p=>{
+    if(!p.entregado_por&&!p.costo) return `<span style="color:var(--text-dim);font-size:12px;font-style:italic">—</span>`;
+    const pg=calcPagos(p.costo);
+    const monto=pg?`<div style="font-size:11px;font-family:var(--fm);color:var(--blue);margin-bottom:3px;">${fmtARS(pg.moto)}</div>`:'';
+    if(p.moto_pagado){
+      return monto+`<button class="btn-pago pagado" onclick="togglePagoMoto('${p.id}')">✅ Pagado</button>`;
+    }
+    return monto+`<button class="btn-pago falta" onclick="togglePagoMoto('${p.id}')">❌ Falta Pagar</button>`;
+  };
+
+  const pedidoCell=p=>{
+    if(!p.tipo&&!p.descripcion) return `<span style="color:var(--text-dim);font-size:12px;font-style:italic">Sin detalle</span>`;
+    const tipo=p.tipo?`<div class="pedido-tipo">${p.tipo}</div>`:'';
+    const desc=p.descripcion?`<div class="pedido-desc">${p.descripcion.length>60?p.descripcion.substring(0,60)+'…':p.descripcion}</div>`:'';
+    return tipo+desc+urgMap(p.urgencia);
+  };
+
+  tbody.innerHTML=lista.map(p=>{
+    const f=new Date(p.ts);
+    const hr=f.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});
+    const di=f.toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit',year:'2-digit'});
+    const pg=p.tienePagador&&p.pagador1_nombre
+      ?`<div class="pagador-tag">👤 ${p.pagador1_nombre} · ${p.pagador1_telefono}</div>`:'';
     return `<tr>
       <td class="td-id">${p.id}</td>
       <td class="td-time">${di}<br>${hr}</td>
-      <td class="td-name">${p.nombre}
-        ${pg}
-        ${p.notas?`<div style="font-size:11px;color:var(--text-dim);margin-top:3px">📝 ${p.notas}</div>`:''}
-      </td>
+      <td class="td-name">${p.nombre}${pg}${p.notas?`<div style="font-size:11px;color:var(--text-dim);margin-top:3px">📝 ${p.notas}</div>`:''}</td>
       <td class="td-dni">${p.dni}</td>
       <td class="td-dir">${p.direccion}</td>
       <td class="td-tel">${p.telefono}</td>
       <td class="td-pedido">${pedidoCell(p)}</td>
-      <td class="td-costo">${costoCell(p)}</td>
-      <td style="font-size:13px;color:#94a3b8;white-space:nowrap;">${p.entregado_por ? '👤 '+p.entregado_por : '<span style="color:var(--text-dim);font-size:12px;font-style:italic">—</span>'}</td>
+      <td>${costoCell(p)}</td>
+      <td>${motoCell(p)}</td>
+      <td>${pagoMotoCell(p)}</td>
       <td>${bMap[p.estado]}</td>
       <td><div class="actions">${aMap(p)}</div></td>
     </tr>`;
@@ -572,91 +700,100 @@ document.getElementById('search-input').addEventListener('input',e=>{ busq=e.tar
 function abrirModal(){ document.getElementById('modal-overlay').classList.add('open'); document.getElementById('m_nombre').focus(); }
 function cerrarModal(){ document.getElementById('modal-overlay').classList.remove('open'); limpiarModal(); }
 function limpiarModal(){
-  ['m_nombre','m_dni','m_direccion','m_telefono','m_p1_nombre','m_p1_telefono','m_p1_relacion','m_notas','m_descripcion','m_costo','m_entregado_por']
-    .forEach(id=>document.getElementById(id).value='');
+  ['m_nombre','m_dni','m_direccion','m_telefono','m_p1_nombre','m_p1_telefono','m_p1_relacion',
+   'm_notas','m_descripcion','m_costo','m_entregado_por','m_moto_cbu'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('m_tipo').value='';
   document.getElementById('m_urgencia').value='media';
   document.getElementById('m_forma_cobro').value='';
   document.querySelector('input[name="m_paga"][value="propio"]').checked=true;
   document.getElementById('modal-pagadores').style.display='none';
+  document.getElementById('m_pago_preview').style.display='none';
 }
 function toggleModalPagador(){
   document.getElementById('modal-pagadores').style.display=
     document.querySelector('input[name="m_paga"]:checked').value==='pagador'?'block':'none';
 }
 function guardarPedido(){
-  const n   = document.getElementById('m_nombre').value.trim();
-  const d   = document.getElementById('m_dni').value.trim();
-  const dir = document.getElementById('m_direccion').value.trim();
-  const t   = document.getElementById('m_telefono').value.trim();
+  const n=document.getElementById('m_nombre').value.trim();
+  const d=document.getElementById('m_dni').value.trim();
+  const dir=document.getElementById('m_direccion').value.trim();
+  const t=document.getElementById('m_telefono').value.trim();
   if(!n||!d||!dir||!t){ alert('Completá los campos obligatorios: Nombre, DNI, Dirección y Teléfono.'); return; }
-  const tp  = document.querySelector('input[name="m_paga"]:checked').value==='pagador';
-  const costo = document.getElementById('m_costo').value;
+  const tp=document.querySelector('input[name="m_paga"]:checked').value==='pagador';
+  const costoRaw=document.getElementById('m_costo').value;
+  const costoNum=costoRaw?parseFloat(costoRaw):null;
+  const pg=calcPagos(costoNum);
   pedidos.unshift({
-    id: genId(), ts: Date.now(),
-    nombre: n, dni: d, direccion: dir, telefono: t,
-    tienePagador: tp,
+    id:genId(), ts:Date.now(),
+    nombre:n, dni:d, direccion:dir, telefono:t,
+    tienePagador:tp,
     pagador1_nombre:   document.getElementById('m_p1_nombre').value.trim(),
     pagador1_telefono: document.getElementById('m_p1_telefono').value.trim(),
     pagador1_relacion: document.getElementById('m_p1_relacion').value.trim(),
-    notas:       document.getElementById('m_notas').value.trim(),
-    entregado_por: document.getElementById('m_entregado_por').value.trim(),
-    tipo:        document.getElementById('m_tipo').value,
-    urgencia:    document.getElementById('m_urgencia').value,
-    descripcion: document.getElementById('m_descripcion').value.trim(),
-    costo:       costo ? parseFloat(costo) : null,
-    forma_cobro: document.getElementById('m_forma_cobro').value,
-    estado: 'pending'
+    notas:             document.getElementById('m_notas').value.trim(),
+    entregado_por:     document.getElementById('m_entregado_por').value.trim(),
+    moto_cbu:          document.getElementById('m_moto_cbu').value.trim(),
+    tipo:              document.getElementById('m_tipo').value,
+    urgencia:          document.getElementById('m_urgencia').value,
+    descripcion:       document.getElementById('m_descripcion').value.trim(),
+    costo:             costoNum,
+    forma_cobro:       document.getElementById('m_forma_cobro').value,
+    pago_moto:         pg?pg.moto:null,
+    pago_admin:        pg?pg.admin:null,
+    pct_aplicado:      pg?pg.pct:null,
+    moto_pagado:       false,
+    estado:'pending'
   });
   savePedidos(pedidos); cerrarModal(); render();
 }
 
 /* ── MODAL EDITAR ── */
 function abrirEditModal(id){
-  const p = pedidos.find(x=>x.id===id);
-  if(!p) return;
-  editId = id;
-  document.getElementById('edit-modal-sub').textContent = `ID: ${p.id}`;
-  document.getElementById('e_nombre').value    = p.nombre    || '';
-  document.getElementById('e_dni').value       = p.dni       || '';
-  document.getElementById('e_direccion').value = p.direccion || '';
-  document.getElementById('e_telefono').value  = p.telefono  || '';
-  document.getElementById('e_tipo').value      = p.tipo      || '';
-  document.getElementById('e_urgencia').value  = p.urgencia  || 'media';
-  document.getElementById('e_descripcion').value = p.descripcion || '';
-  document.getElementById('e_costo').value     = p.costo != null ? p.costo : '';
-  document.getElementById('e_forma_cobro').value = p.forma_cobro || '';
-  document.getElementById('e_notas').value     = p.notas     || '';
-  document.getElementById('e_entregado_por').value = p.entregado_por || '';
+  const p=pedidos.find(x=>x.id===id); if(!p) return;
+  editId=id;
+  document.getElementById('edit-modal-sub').textContent=`ID: ${p.id}`;
+  document.getElementById('e_nombre').value      = p.nombre      ||'';
+  document.getElementById('e_dni').value         = p.dni         ||'';
+  document.getElementById('e_direccion').value   = p.direccion   ||'';
+  document.getElementById('e_telefono').value    = p.telefono    ||'';
+  document.getElementById('e_tipo').value        = p.tipo        ||'';
+  document.getElementById('e_urgencia').value    = p.urgencia    ||'media';
+  document.getElementById('e_descripcion').value = p.descripcion ||'';
+  document.getElementById('e_costo').value       = p.costo!=null ? p.costo : '';
+  document.getElementById('e_forma_cobro').value = p.forma_cobro ||'';
+  document.getElementById('e_notas').value       = p.notas       ||'';
+  document.getElementById('e_entregado_por').value= p.entregado_por||'';
+  document.getElementById('e_moto_cbu').value    = p.moto_cbu    ||'';
   document.getElementById('modal-edit-overlay').classList.add('open');
+  actualizarPreviewEditar();
   document.getElementById('e_nombre').focus();
 }
-function cerrarEditModal(){
-  document.getElementById('modal-edit-overlay').classList.remove('open');
-  editId = null;
-}
+function cerrarEditModal(){ document.getElementById('modal-edit-overlay').classList.remove('open'); editId=null; }
 function guardarEdicion(){
   if(!editId) return;
-  const i = pedidos.findIndex(p=>p.id===editId);
-  if(i<0) return;
-  const costo = document.getElementById('e_costo').value;
-  pedidos[i] = {
+  const i=pedidos.findIndex(p=>p.id===editId); if(i<0) return;
+  const costoRaw=document.getElementById('e_costo').value;
+  const costoNum=costoRaw!==''?parseFloat(costoRaw):null;
+  const pg=calcPagos(costoNum);
+  pedidos[i]={
     ...pedidos[i],
-    nombre:      document.getElementById('e_nombre').value.trim()    || pedidos[i].nombre,
-    dni:         document.getElementById('e_dni').value.trim()        || pedidos[i].dni,
-    direccion:   document.getElementById('e_direccion').value.trim()  || pedidos[i].direccion,
-    telefono:    document.getElementById('e_telefono').value.trim()   || pedidos[i].telefono,
-    tipo:        document.getElementById('e_tipo').value,
-    urgencia:    document.getElementById('e_urgencia').value,
-    descripcion: document.getElementById('e_descripcion').value.trim(),
-    costo:       costo !== '' ? parseFloat(costo) : null,
-    forma_cobro: document.getElementById('e_forma_cobro').value,
-    notas:       document.getElementById('e_notas').value.trim(),
-    entregado_por: document.getElementById('e_entregado_por').value.trim(),
+    nombre:       document.getElementById('e_nombre').value.trim()      ||pedidos[i].nombre,
+    dni:          document.getElementById('e_dni').value.trim()          ||pedidos[i].dni,
+    direccion:    document.getElementById('e_direccion').value.trim()    ||pedidos[i].direccion,
+    telefono:     document.getElementById('e_telefono').value.trim()     ||pedidos[i].telefono,
+    tipo:         document.getElementById('e_tipo').value,
+    urgencia:     document.getElementById('e_urgencia').value,
+    descripcion:  document.getElementById('e_descripcion').value.trim(),
+    costo:        costoNum,
+    forma_cobro:  document.getElementById('e_forma_cobro').value,
+    notas:        document.getElementById('e_notas').value.trim(),
+    entregado_por:document.getElementById('e_entregado_por').value.trim(),
+    moto_cbu:     document.getElementById('e_moto_cbu').value.trim(),
+    pago_moto:    pg?pg.moto:null,
+    pago_admin:   pg?pg.admin:null,
+    pct_aplicado: pg?pg.pct:null,
   };
-  savePedidos(pedidos);
-  cerrarEditModal();
-  render();
+  savePedidos(pedidos); cerrarEditModal(); render();
 }
 
 /* ── EXPORTACIÓN EXCEL ── */
@@ -666,11 +803,11 @@ function toggleFechas(){
   document.getElementById('exp-fechas').classList.toggle('open',v==='custom');
 }
 function filtrarExport(){
-  const rango  = document.getElementById('exp-rango').value;
-  const estado = document.getElementById('exp-estado').value;
-  const ahora  = new Date();
+  const rango=document.getElementById('exp-rango').value;
+  const estado=document.getElementById('exp-estado').value;
+  const ahora=new Date();
   return pedidos.filter(p=>{
-    if(estado!=='all' && p.estado!==estado) return false;
+    if(estado!=='all'&&p.estado!==estado) return false;
     const f=new Date(p.ts);
     if(rango==='hoy')    return f.toDateString()===ahora.toDateString();
     if(rango==='semana'){ const l=new Date(ahora); l.setDate(ahora.getDate()-ahora.getDay()+1); l.setHours(0,0,0,0); return f>=l; }
@@ -684,47 +821,92 @@ function filtrarExport(){
     return true;
   });
 }
-const eTexto = e=>({'pending':'Pendiente','progress':'En curso','done':'Atendido'}[e]||e);
+const eTexto=e=>({'pending':'Pendiente','progress':'En curso','done':'Atendido'}[e]||e);
 
 function exportarExcel(){
-  const datos = filtrarExport();
+  const datos=filtrarExport();
   if(!datos.length){ alert('No hay pedidos con esos filtros.'); return; }
-  const filas = datos.map(p=>({
-    'ID Pedido':        p.id,
-    'Fecha':            new Date(p.ts).toLocaleDateString('es-AR'),
-    'Hora':             new Date(p.ts).toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'}),
-    'Estado':           eTexto(p.estado),
-    'Nombre Cliente':   p.nombre,
-    'DNI':              p.dni,
-    'Dirección':        p.direccion,
-    'Teléfono Cliente': p.telefono,
-    'Modalidad Pago':   p.tienePagador?'Pagador externo':'Propio',
-    'Nombre Pagador':   p.pagador1_nombre   ||'',
-    'Tel. Pagador':     p.pagador1_telefono ||'',
-    'Relación Pagador': p.pagador1_relacion ||'',
-    'Tipo de Servicio': p.tipo              ||'',
-    'Urgencia':         ({alta:'Alta',media:'Media',baja:'Baja'}[p.urgencia])||'',
-    'Descripción':      p.descripcion       ||'',
-    'Costo ($)':        p.costo != null ? p.costo : '',
-    'Forma de Cobro':   p.forma_cobro       ||'',
-    'Entregado por':    p.entregado_por     ||'',
-    'Notas':            p.notas             ||''
-  }));
+
+  // Calcula siempre en base al porcentaje actual guardado
+  const pctMoto  = (porcentaje!=null) ? porcentaje       : null;
+  const pctAdmin = (porcentaje!=null) ? 100 - porcentaje : null;
+
+  const filas=datos.map(p=>{
+    const costo = (p.costo!=null && p.costo!=='') ? parseFloat(p.costo) : null;
+    const pagoMoto  = (costo!==null && pctMoto!==null)  ? parseFloat((costo * pctMoto  / 100).toFixed(2)) : '';
+    const pagoAdmin = (costo!==null && pctAdmin!==null)  ? parseFloat((costo * pctAdmin / 100).toFixed(2)) : '';
+    return {
+      'ID Pedido':              p.id,
+      'Fecha':                  new Date(p.ts).toLocaleDateString('es-AR'),
+      'Hora':                   new Date(p.ts).toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'}),
+      'Estado Pedido':          eTexto(p.estado),
+      'Nombre Cliente':         p.nombre,
+      'DNI':                    p.dni,
+      'Dirección':              p.direccion,
+      'Teléfono Cliente':       p.telefono,
+      'Modalidad Pago':         p.tienePagador?'Pagador externo':'Propio',
+      'Nombre Pagador':         p.pagador1_nombre   ||'',
+      'Tel. Pagador':           p.pagador1_telefono ||'',
+      'Relación Pagador':       p.pagador1_relacion ||'',
+      'Tipo de Servicio':       p.tipo              ||'',
+      'Urgencia':               ({alta:'Alta',media:'Media',baja:'Baja'}[p.urgencia])||'',
+      'Descripción':            p.descripcion       ||'',
+      'Costo Total ($)':        costo!==null        ? costo : '',
+      'Forma de Cobro':         p.forma_cobro       ||'',
+      '% Motoquero':            pctMoto!==null      ? pctMoto       : 'Sin definir',
+      '% Admin':                pctAdmin!==null     ? pctAdmin      : 'Sin definir',
+      'Pago Motoquero ($)':     pagoMoto,
+      'Pago Admin ($)':         pagoAdmin,
+      'Motoquero':              p.entregado_por     ||'',
+      'Alias/CBU Motoquero':    p.moto_cbu          ||'',
+      'Estado Pago Motoquero':  p.moto_pagado       ? 'PAGADO' : 'FALTA PAGAR',
+      'Notas':                  p.notas             ||''
+    };
+  });
+
+  // Totales calculados en el momento
+  const totalCosto = datos.reduce((s,p)=>s+(p.costo?parseFloat(p.costo):0),0);
+  const totalMoto  = (pctMoto!==null)  ? parseFloat((totalCosto * pctMoto  / 100).toFixed(2)) : '';
+  const totalAdmin = (pctAdmin!==null) ? parseFloat((totalCosto * pctAdmin / 100).toFixed(2)) : '';
+  const totalPagados    = datos.filter(p=>p.moto_pagado).length;
+  const totalFaltaPagar = datos.filter(p=>!p.moto_pagado && p.entregado_por).length;
+
   const resumen=[
-    {'Estado':'Pendiente','Cantidad':datos.filter(p=>p.estado==='pending').length},
-    {'Estado':'En curso', 'Cantidad':datos.filter(p=>p.estado==='progress').length},
-    {'Estado':'Atendido', 'Cantidad':datos.filter(p=>p.estado==='done').length},
-    {'Estado':'TOTAL',    'Cantidad':datos.length},
-    {'Estado':'Facturado ($)','Cantidad':datos.reduce((s,p)=>s+(p.costo||0),0)}
+    {'Concepto':'── ESTADOS DE PEDIDOS ──',        'Cantidad':'',                                             'Importe ($)':''},
+    {'Concepto':'Pendientes',                       'Cantidad':datos.filter(p=>p.estado==='pending').length,  'Importe ($)':''},
+    {'Concepto':'En curso',                         'Cantidad':datos.filter(p=>p.estado==='progress').length, 'Importe ($)':''},
+    {'Concepto':'Atendidos',                        'Cantidad':datos.filter(p=>p.estado==='done').length,     'Importe ($)':''},
+    {'Concepto':'TOTAL pedidos',                    'Cantidad':datos.length,                                  'Importe ($)':''},
+    {'Concepto':'',                                 'Cantidad':'',                                            'Importe ($)':''},
+    {'Concepto':'── DISTRIBUCIÓN ECONÓMICA ──',     'Cantidad':'',                                            'Importe ($)':''},
+    {'Concepto':'Facturado total ($)',               'Cantidad':'', 'Importe ($)':parseFloat(totalCosto.toFixed(2))},
+    {'Concepto':`Pago Motoqueros (${pctMoto??'?'}%)`, 'Cantidad':'','Importe ($)':totalMoto},
+    {'Concepto':`Ganancia Admin (${pctAdmin??'?'}%)`,'Cantidad':'','Importe ($)':totalAdmin},
+    {'Concepto':'',                                 'Cantidad':'',                                            'Importe ($)':''},
+    {'Concepto':'── PORCENTAJES VIGENTES ──',       'Cantidad':'',                                            'Importe ($)':''},
+    {'Concepto':'% Motoquero',                      'Cantidad':pctMoto!==null  ? pctMoto+'%'  : 'Sin definir','Importe ($)':''},
+    {'Concepto':'% Admin',                          'Cantidad':pctAdmin!==null ? pctAdmin+'%' : 'Sin definir','Importe ($)':''},
+    {'Concepto':'',                                 'Cantidad':'',                                            'Importe ($)':''},
+    {'Concepto':'── ESTADO DE PAGOS A MOTOQUEROS ──','Cantidad':'',                                           'Importe ($)':''},
+    {'Concepto':'Motoqueros PAGADOS',               'Cantidad':totalPagados,                                  'Importe ($)':''},
+    {'Concepto':'Motoqueros FALTA PAGAR',           'Cantidad':totalFaltaPagar,                               'Importe ($)':''},
   ];
-  const wb  = XLSX.utils.book_new();
-  const ws1 = XLSX.utils.json_to_sheet(filas);
-  ws1['!cols']=[{wch:14},{wch:12},{wch:8},{wch:12},{wch:22},{wch:12},{wch:28},{wch:16},{wch:16},{wch:20},{wch:16},{wch:16},{wch:18},{wch:10},{wch:35},{wch:12},{wch:16},{wch:30}];
+
+  const wb=XLSX.utils.book_new();
+
+  const ws1=XLSX.utils.json_to_sheet(filas);
+  ws1['!cols']=[
+    {wch:14},{wch:12},{wch:8},{wch:14},{wch:22},{wch:12},{wch:28},{wch:16},
+    {wch:16},{wch:20},{wch:16},{wch:16},{wch:20},{wch:10},{wch:35},
+    {wch:16},{wch:16},{wch:14},{wch:12},{wch:20},{wch:16},{wch:22},{wch:28},{wch:18},{wch:20}
+  ];
   XLSX.utils.book_append_sheet(wb, ws1, 'Pedidos');
-  const ws2 = XLSX.utils.json_to_sheet(resumen);
-  ws2['!cols']=[{wch:18},{wch:12}];
+
+  const ws2=XLSX.utils.json_to_sheet(resumen);
+  ws2['!cols']=[{wch:32},{wch:16},{wch:16}];
   XLSX.utils.book_append_sheet(wb, ws2, 'Resumen');
-  const fecha = new Date().toLocaleDateString('es-AR').replace(/\//g,'-');
+
+  const fecha=new Date().toLocaleDateString('es-AR').replace(/\//g,'-');
   XLSX.writeFile(wb, `ProntaAyuda_${fecha}.xlsx`);
 }
 
@@ -732,6 +914,7 @@ function exportarExcel(){
 document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ cerrarModal(); cerrarEditModal(); } });
 document.getElementById('modal-overlay').addEventListener('click',function(e){ if(e.target===this) cerrarModal(); });
 document.getElementById('modal-edit-overlay').addEventListener('click',function(e){ if(e.target===this) cerrarEditModal(); });
+initPct();
 render();
 setInterval(()=>{ pedidos=loadPedidos(); render(); }, 30000);
 </script>
